@@ -1,0 +1,7 @@
+FROM ubuntu:20.04
+RUN apt update && apt upgrade -y
+RUN apt install curl wget openssh-server net-tools -y
+RUN apt install default-jdk -y
+RUN apt install maven -y
+RUN useradd devil
+RUN echo devil:devil | chpasswd
