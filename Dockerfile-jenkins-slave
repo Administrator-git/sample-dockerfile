@@ -1,7 +1,13 @@
 FROM ubuntu:20.04
 RUN apt update && apt upgrade -y
-RUN apt install curl wget openssh-server net-tools -y
+RUN apt install openssh-server sudo -y
+RUN apt install git -y
 RUN apt install default-jdk -y
 RUN apt install maven -y
-RUN useradd devil
-RUN echo devil:devil | chpasswd
+# Add user jenkins to the image
+RUN adduser --quiet jenkins && \
+# Set password for the jenkins user (you may want to alter this).
+    echo "jenkins:jenkins" | chpasswd
+RUN service ssh start
+EXPOSE 22
+WORKDIR /home/ubuntu
